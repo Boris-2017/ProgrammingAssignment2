@@ -3,7 +3,7 @@
 ## The code and comments below are based on the sample provided by Prof. Peng as part of the assignment.
 
 
-## This function creates an object that can cache its inverse
+## This function creates a matrix object that can cache the matrix inverse
 
 makeCacheMatrix <- function(x = matrix()) 
 {
@@ -11,8 +11,8 @@ makeCacheMatrix <- function(x = matrix())
         ## Input:
         ##      x:      a matrix whose inverse is to be computed and stored
         ##
-        ## Output:      a list of 4 functions: set, get, setinverse and getinverse that set the matrix equal to x, return 
-        ##                      the stored matrix, set the inverse of the stored matrix and return it, respectively
+        ## Output:      a list of 4 functions: set, get, setinverse and getinverse that set x equal to the argument passed, 
+        ##                      return the stored matrix, set the inverse of the stored matrix and return it, respectively
         ## 
 
         Inverse <- NULL
