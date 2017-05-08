@@ -1,5 +1,5 @@
 ## 07.05.2017: This is homework for Week 3 of R Programming course on coursera.org
-## The functions below cache the inverse of a matrix to avoid subsequent recalculations when not necessary. 
+## The functions below cache the inverse of a matrix to avoid potentially costly recalculations when not necessary. 
 ## The code and comments below are based on the sample provided by Prof. Peng as part of the assignment.
 
 
@@ -9,9 +9,9 @@ makeCacheMatrix <- function(x = matrix())
 {
         
         ## Input:
-        ##      x:      a matrix whose inverse is to be computed and stored
+        ##      x:      matrix whose inverse is to be computed and stored
         ##
-        ## Output:      a list of 4 functions: set, get, setinverse and getinverse that set x equal to the argument passed, 
+        ## Output:      list of 4 functions: set, get, setinverse and getinverse that set x equal to the argument passed, 
         ##                      return the stored matrix, set the inverse of the stored matrix and return it, respectively
         ## 
 
@@ -19,8 +19,11 @@ makeCacheMatrix <- function(x = matrix())
         
         set <- function(y) 
         {
-                x <<- y
-                Inverse <<- NULL
+                if (sum(x!=y)>0) # to avoid any unnecessary recalculation of the inverse, only if x<>y, then...
+                {
+                        x <<- y # ... set x to y and...
+                        Inverse <<- NULL # ... reset the inverse since it has not been calculated yet for the new x
+                }
         }
         
         get <- function() x
@@ -48,14 +51,14 @@ cacheSolve <- function(x, ...)
         ## 
         
         Inverse <- x$getinverse()
-        if(!is.null(Inverse)) 
+        if(!is.null(Inverse)) # if the inverse has already been calculated, then...
         {
                 message("Cached inverse returned.")
-                return(Inverse)
+                return(Inverse) # ... return the stored inverse
         }
         data <- x$get()
-        Inverse <- solve(data, ...)
-        x$setinverse(Inverse)
-        Inverse
+        Inverse <- solve(data, ...) # if the inverse has not been calculated yet, compute...
+        x$setinverse(Inverse) # ... store and...
+        Inverse # ... return it
         
 }
